@@ -33,7 +33,7 @@ const extraStrings = {
   DOTA_UNIT_TARGET_HERO: "Hero",
   DOTA_UNIT_TARGET_BASIC: "Basic",
   DOTA_UNIT_TARGET_BUILDING: "Building",
-  DOTA_UNIT_TARGET_TREE: "Tree"
+  DOTA_UNIT_TARGET_TREE: "Tree",
 };
 
 const ignoreStrings = [
@@ -43,13 +43,13 @@ const ignoreStrings = [
   "DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING",
   "DOTA_ABILITY_BEHAVIOR_TOGGLE",
   "DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE",
-  "DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+  "DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES",
 ];
 
 const badNames = [
   "Version",
   "npc_dota_hero_base",
-  "npc_dota_hero_target_dummy"
+  "npc_dota_hero_target_dummy",
 ];
 
 const extraAttribKeys = [
@@ -60,7 +60,7 @@ const extraAttribKeys = [
   "AbilityCastPoint",
   "AbilityCharges",
   "AbilityManaCost",
-  "AbilityCooldown"
+  "AbilityCooldown",
 ];
 
 const now = Number(new Date());
@@ -69,7 +69,8 @@ const aghs_desc_urls = [];
 
 for (const hero_id in hero_list) {
   aghs_desc_urls.push(
-    "http://www.dota2.com/datafeed/herodata?language=english&hero_id=" + hero_id
+    "http://www.dota2.com/datafeed/herodata?language=english&hero_id=" +
+      hero_id,
   );
 }
 
@@ -79,7 +80,7 @@ const sources = [
     url: [
       "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/resource/localization/abilities_english.json",
       "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/items.json",
-      "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/neutral_items.txt"
+      "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/neutral_items.txt",
     ],
     transform: (respObj) => {
       const strings = mapAbilities(respObj[0].lang.Tokens);
@@ -113,14 +114,14 @@ const sources = [
               scripts[key].AbilitySpecial,
               true,
               scripts[key],
-              key
-            )
+              key,
+            ),
           };
 
           item.id = parseInt(scripts[key].ID);
           item.img = `/apps/dota2/images/items/${key.replace(
             /^item_/,
-            ""
+            "",
           )}_lg.png?t=${1593393829403}`;
           if (key.includes("item_recipe")) {
             item.img = `/apps/dota2/images/items/recipe_lg.png?t=${1593393829403}`;
@@ -144,7 +145,7 @@ const sources = [
           item.attrib = formatAttrib(
             scripts[key].AbilitySpecial,
             strings,
-            `DOTA_Tooltip_ability_${key}_`
+            `DOTA_Tooltip_ability_${key}_`,
           ).filter((attr) => !attr.generated || attr.key === "lifetime");
 
           item.mc = parseInt(scripts[key].AbilityManaCost) || false;
@@ -166,7 +167,7 @@ const sources = [
       // Load recipes
       Object.keys(scripts)
         .filter(
-          (key) => scripts[key].ItemRequirements && scripts[key].ItemResult
+          (key) => scripts[key].ItemRequirements && scripts[key].ItemResult,
         )
         .forEach((key) => {
           result_key = scripts[key].ItemResult.replace(/^item_/, "");
@@ -190,80 +191,80 @@ const sources = [
             key: "bonus_agility",
             header: "",
             value: ["25", "35"],
-            footer: "Agility"
+            footer: "Agility",
           },
           {
             key: "bonus_intellect",
             header: "",
             value: ["10", "15"],
-            footer: "Intelligence"
+            footer: "Intelligence",
           },
           {
             key: "initial_charges",
             header: "INITIAL CHARGES:",
             value: "8",
-            generated: true
+            generated: true,
           },
           {
             key: "feedback_mana_burn",
             header: "FEEDBACK MANA BURN:",
             value: "50",
-            generated: true
+            generated: true,
           },
           {
             key: "feedback_mana_burn_illusion_melee",
             header: "FEEDBACK MANA BURN ILLUSION MELEE:",
             value: "16",
-            generated: true
+            generated: true,
           },
           {
             key: "feedback_mana_burn_illusion_ranged",
             header: "FEEDBACK MANA BURN ILLUSION RANGED:",
             value: "8",
-            generated: true
+            generated: true,
           },
           {
             key: "purge_summoned_damage",
             header: "PURGE SUMMONED DAMAGE:",
             value: "99999",
-            generated: true
+            generated: true,
           },
           {
             key: "purge_rate",
             header: "PURGE RATE:",
             value: "5",
-            generated: true
+            generated: true,
           },
           {
             key: "purge_root_duration",
             header: "PURGE ROOT DURATION:",
             value: "3",
-            generated: true
+            generated: true,
           },
           {
             key: "purge_slow_duration",
             header: "PURGE SLOW DURATION:",
             value: "4",
-            generated: true
+            generated: true,
           },
           {
             key: "damage_per_burn",
             header: "DAMAGE PER BURN:",
             value: "0.8",
-            generated: true
+            generated: true,
           },
           {
             key: "cast_range_tooltip",
             header: "CAST RANGE TOOLTIP:",
             value: "600",
-            generated: true
-          }
+            generated: true,
+          },
         ],
         mc: false,
         cd: 4,
         lore: "An enchanted blade that allows the user to cut straight into the enemy's soul.",
         components: ["diffusal_blade", "recipe_diffusal_blade"],
-        created: true
+        created: true,
       };
 
       //Manually added for match data prior to 7.07
@@ -279,11 +280,11 @@ const sources = [
         cd: false,
         lore: "",
         components: null,
-        created: false
+        created: false,
       };
 
       return items;
-    }
+    },
   },
   {
     key: "item_ids",
@@ -301,13 +302,13 @@ const sources = [
       itemIds[196] = "diffusal_blade_2";
 
       return itemIds;
-    }
+    },
   },
   {
     key: "abilities",
     url: [
       "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/resource/localization/abilities_english.json",
-      "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/npc_abilities.json"
+      "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/npc_abilities.json",
     ],
     transform: (respObj) => {
       const strings = respObj[0].lang.Tokens;
@@ -318,7 +319,7 @@ const sources = [
         "ability_base",
         "default_attack",
         "attribute_bonus",
-        "ability_deward"
+        "ability_deward",
       ];
 
       var abilities = {};
@@ -333,7 +334,7 @@ const sources = [
             scripts[key].AbilitySpecial ??
               (scripts[key].AbilityValues
                 ? [scripts[key].AbilityValues]
-                : undefined)
+                : undefined),
           );
 
           // Check for unreplaced `s:bonus_<talent>`
@@ -345,7 +346,7 @@ const sources = [
             ability.dname = replaceBonusSValues(
               key,
               ability.dname,
-              scripts[scripts[key].ad_linked_abilities].AbilityValues
+              scripts[scripts[key].ad_linked_abilities].AbilityValues,
             );
           }
 
@@ -370,7 +371,7 @@ const sources = [
                 : undefined),
             false,
             scripts[key],
-            key
+            key,
           );
           ability.dmg =
             scripts[key].AbilityDamage &&
@@ -379,7 +380,7 @@ const sources = [
           ability.attrib = formatAttrib(
             scripts[key].AbilitySpecial,
             strings,
-            `DOTA_Tooltip_ability_${key}_`
+            `DOTA_Tooltip_ability_${key}_`,
           );
 
           ability.lore = strings[`DOTA_Tooltip_ability_${key}_Lore`];
@@ -389,14 +390,14 @@ const sources = [
               ability.mc = formatValues(
                 scripts[key].AbilityManaCost,
                 false,
-                "/"
+                "/",
               );
             }
             if (scripts[key].AbilityCooldown) {
               ability.cd = formatValues(
                 scripts[key].AbilityCooldown,
                 false,
-                "/"
+                "/",
               );
             }
           }
@@ -408,7 +409,7 @@ const sources = [
           abilities[key] = ability;
         });
       return abilities;
-    }
+    },
   },
   {
     key: "ability_ids",
@@ -422,19 +423,19 @@ const sources = [
         }
       }
       return abilityIds;
-    }
+    },
   },
   {
     key: "heroes",
     url: [
       "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/resource/dota_english.json",
-      "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/npc_heroes.json"
+      "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/npc_heroes.json",
       // "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/resource/localization/dota_english.json",
     ],
     transform: (respObj) => {
       let heroes = [];
       let keys = Object.keys(respObj[1].DOTAHeroes).filter(
-        (name) => !badNames.includes(name)
+        (name) => !badNames.includes(name),
       );
       keys.forEach((name) => {
         let h = formatVpkHero(name, respObj[1], respObj[0].lang.Tokens[name]);
@@ -451,19 +452,19 @@ const sources = [
         heroesObj[hero.id] = hero;
       }
       return heroesObj;
-    }
+    },
   },
   {
     key: "hero_names",
     url: [
       "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/resource/dota_english.json",
-      "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/npc_heroes.json"
+      "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/npc_heroes.json",
       // "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/resource/localization/dota_english.json",
     ],
     transform: (respObj) => {
       let heroes = [];
       let keys = Object.keys(respObj[1].DOTAHeroes).filter(
-        (name) => !badNames.includes(name)
+        (name) => !badNames.includes(name),
       );
       keys.forEach((name) => {
         let h = formatVpkHero(name, respObj[1], respObj[0].lang.Tokens[name]);
@@ -480,7 +481,7 @@ const sources = [
         heroesObj[hero.name] = hero;
       }
       return heroesObj;
-    }
+    },
   },
   {
     key: "hero_abilities",
@@ -510,7 +511,7 @@ const sources = [
                 // -8 not -10 because going from 0-based index -> 1 and flooring divison result
                 newHero["talents"].push({
                   name: DOTAHeroes[heroKey][key],
-                  level: Math.floor(talentCounter / 2)
+                  level: Math.floor(talentCounter / 2),
                 });
                 talentCounter++;
               }
@@ -520,7 +521,7 @@ const sources = [
         }
       });
       return heroAbilities;
-    }
+    },
   },
   {
     key: "region",
@@ -538,7 +539,7 @@ const sources = [
         }
       }
       return region;
-    }
+    },
   },
   {
     key: "cluster",
@@ -549,7 +550,7 @@ const sources = [
         cluster[id] = regionId;
       });
       return cluster;
-    }
+    },
   },
   {
     key: "countries",
@@ -559,22 +560,22 @@ const sources = [
       respObj
         .map((c) => ({
           name: {
-            common: c.name.common
+            common: c.name.common,
           },
-          cca2: c.cca2
+          cca2: c.cca2,
         }))
         .forEach((c) => {
           countries[c.cca2] = c;
         });
       return countries;
-    }
+    },
   },
   {
     key: "chat_wheel",
     url: [
       "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/chat_wheel.txt",
       "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/resource/localization/dota_english.json",
-      "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/resource/localization/hero_chat_wheel_english.txt"
+      "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/resource/localization/hero_chat_wheel_english.txt",
     ],
     transform: (respObj) => {
       const chat_wheel = respObj[0];
@@ -599,7 +600,7 @@ const sources = [
           label: localize(message.label),
           message: localize(message.message),
           image: message.image,
-          badge_tier: message.unlock_hero_badge_tier
+          badge_tier: message.unlock_hero_badge_tier,
         };
         if (message.sound) {
           if (/^soundboard\./.test(message.sound) || /^wisp_/.test(key)) {
@@ -626,7 +627,7 @@ const sources = [
         }
       }
       return result;
-    }
+    },
   },
   {
     key: "patchnotes",
@@ -634,7 +635,7 @@ const sources = [
     transform: (respObj) => {
       let items = Object.keys(require("../build/items.json"));
       let heroes = Object.keys(require("../build/hero_names.json")).map(
-        (hero) => hero.replace("npc_dota_hero_", "")
+        (hero) => hero.replace("npc_dota_hero_", ""),
       );
 
       let result = {};
@@ -646,7 +647,7 @@ const sources = [
           result[patch] = {
             general: [],
             items: {},
-            heroes: {}
+            heroes: {},
           };
 
         if (keyArr[0].toLowerCase() == "general") {
@@ -676,7 +677,7 @@ const sources = [
       }
 
       return result;
-    }
+    },
   },
   {
     key: "aghs_desc",
@@ -705,7 +706,7 @@ const sources = [
           has_shard: false,
           shard_desc: "",
           shard_skill_name: "",
-          shard_new_skill: false
+          shard_new_skill: false,
         };
 
         hd_hero.abilities.forEach((ability) => {
@@ -754,7 +755,7 @@ const sources = [
               "[" +
               aghs_element.hero_id +
               "]" +
-              ": Didn't find a scepter..."
+              ": Didn't find a scepter...",
           );
         }
         if (!aghs_element.has_scepter) {
@@ -763,7 +764,7 @@ const sources = [
               "[" +
               aghs_element.hero_id +
               "]" +
-              ": Didn't find a shard..."
+              ": Didn't find a shard...",
           );
         }
         // push the current hero"s element into the array
@@ -771,8 +772,8 @@ const sources = [
       });
 
       return aghs_desc_arr;
-    }
-  }
+    },
+  },
 ];
 
 const patches = JSON.parse(fs.readFileSync("./json/patch.json"));
@@ -781,7 +782,7 @@ const lastPatch = patches[patches.length - 1];
 const today = new Date();
 const dayDifference = Math.ceil(
   Math.abs(today.getTime() - new Date(lastPatch.date).getTime()) /
-    (1000 * 3600 * 24)
+    (1000 * 3600 * 24),
 );
 patches.forEach((p, i) => {
   newPatches.push({ ...p, id: i });
@@ -819,11 +820,11 @@ async.each(
           handleResponse(
             err,
             {
-              statusCode: 200
+              statusCode: 200,
             },
-            JSON.stringify(resultArr)
+            JSON.stringify(resultArr),
           );
-        }
+        },
       );
     } else {
       request(url, handleResponse);
@@ -860,7 +861,7 @@ async.each(
       }
       fs.writeFileSync(
         "./build/" + s.key + ".json",
-        JSON.stringify(body, null, 2)
+        JSON.stringify(body, null, 2),
       );
       cb(err);
     }
@@ -874,7 +875,7 @@ async.each(
     jsons.forEach((filename) => {
       fs.writeFileSync(
         "./build/" + filename,
-        fs.readFileSync("./json/" + filename, "utf-8")
+        fs.readFileSync("./json/" + filename, "utf-8"),
       );
     });
     // Reference built files in index.js
@@ -887,13 +888,13 @@ ${cfs
     (filename) =>
       `${filename.split(".")[0]}: require(__dirname + "/build/${
         filename.split(".")[0]
-      }.json")`
+      }.json")`,
   )
   .join(",\n")}
 };`;
     fs.writeFileSync("./index.js", code);
     process.exit(0);
-  }
+  },
 );
 
 function expandItemGroup(key, items) {
@@ -903,7 +904,7 @@ function expandItemGroup(key, items) {
       base,
       items[key].components.map(function (c) {
         return expandItemGroup(c, items);
-      })
+      }),
     );
   } else {
     return base;
@@ -935,7 +936,7 @@ function formatAttrib(attributes, strings, strings_prefix) {
   return (attributes || [])
     .map((attr) => {
       let key = Object.keys(attr).find(
-        (key) => `${strings_prefix}${key}` in strings
+        (key) => `${strings_prefix}${key}` in strings,
       );
       if (!key) {
         for (item in attr) {
@@ -946,7 +947,7 @@ function formatAttrib(attributes, strings, strings_prefix) {
           key: key,
           header: `${key.replace(/_/g, " ").toUpperCase()}:`,
           value: formatValues(attr[key]),
-          generated: true
+          generated: true,
         };
       }
 
@@ -984,7 +985,7 @@ function catogerizeItemAbilities(abilities) {
         (itemAbilities[type.toLowerCase()] =
           itemAbilities[type.toLowerCase()] || []).push({
           name: name,
-          desc: desc
+          desc: desc,
         });
       } catch (e) {
         console.log(e);
@@ -1042,7 +1043,7 @@ function replaceSpecialAttribs(
   attribs,
   isItem = false,
   allData = {},
-  key // For error tracing
+  key, // For error tracing
 ) {
   if (!template) {
     return template;
@@ -1125,7 +1126,7 @@ function formatBehavior(string) {
     .filter(
       (a) =>
         !ignoreStrings.includes(a.trim()) &&
-        extraStrings.hasOwnProperty(a.trim())
+        extraStrings.hasOwnProperty(a.trim()),
     )
     .map((item) => {
       return extraStrings[item.trim()];
@@ -1169,7 +1170,7 @@ function formatVpkHero(key, vpkr, localized_name) {
 
   h.base_health = Number(vpkrh.StatusHealth || baseHero.StatusHealth);
   h.base_health_regen = Number(
-    vpkrh.StatusHealthRegen || baseHero.StatusHealthRegen
+    vpkrh.StatusHealthRegen || baseHero.StatusHealthRegen,
   );
   h.base_mana = Number(vpkrh.StatusMana || baseHero.StatusMana);
   h.base_mana_regen = Number(vpkrh.StatusManaRegen || baseHero.StatusManaRegen);
@@ -1189,7 +1190,7 @@ function formatVpkHero(key, vpkr, localized_name) {
 
   h.attack_range = Number(vpkrh.AttackRange);
   h.projectile_speed = Number(
-    vpkrh.ProjectileSpeed || baseHero.ProjectileSpeed
+    vpkrh.ProjectileSpeed || baseHero.ProjectileSpeed,
   );
   h.attack_rate = Number(vpkrh.AttackRate || baseHero.AttackRate);
 
